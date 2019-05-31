@@ -1,0 +1,92 @@
+# depslib dependency file v1.0
+1559315989 source:c:\users\derekslager\gits\text_quest\text_quest\main.cpp
+	"world.h"
+
+1559315989 c:\users\derekslager\gits\text_quest\text_quest\include\world.h
+	"Map.h"
+
+1559315989 c:\users\derekslager\gits\text_quest\text_quest\include\map.h
+	"Room.h"
+
+1559316206 c:\users\derekslager\gits\text_quest\text_quest\include\room.h
+	"Objects.h"
+
+1559315989 c:\users\derekslager\gits\text_quest\text_quest\include\items.h
+	"Objects.h"
+
+1559316211 c:\users\derekslager\gits\text_quest\text_quest\include\objects.h
+	<iostream>
+	<string>
+	<vector>
+	<time.h>
+	<cstdlib>
+
+1559315989 source:c:\users\derekslager\gits\text_quest\text_quest\src\items.cpp
+	"items.h"
+
+1559315811 source:c:\users\derekslager\gits\text_quest\text_quest\src\map.cpp
+	"Map.h"
+
+1559316004 source:c:\users\derekslager\gits\text_quest\text_quest\src\objects.cpp
+	"Objects.h"
+
+1559315811 source:c:\users\derekslager\gits\text_quest\text_quest\src\room.cpp
+	"Room.h"
+
+1559315811 source:c:\users\derekslager\gits\text_quest\text_quest\src\world.cpp
+	"world.h"
+
+1559321084 source:c:\users\derekslager\gits\text_quest\main.cpp
+	"world.h"
+
+1559315989 c:\users\derekslager\gits\text_quest\include\world.h
+	"Map.h"
+
+1559319819 c:\users\derekslager\gits\text_quest\include\map.h
+	"Room.h"
+
+1559321230 c:\users\derekslager\gits\text_quest\include\room.h
+	"Objects.h"
+
+1559319826 c:\users\derekslager\gits\text_quest\include\objects.h
+	<iostream>
+	<string>
+	<sstream>
+	<vector>
+	<time.h>
+	<cstdlib>
+	"../LUA535/include/lua.h"
+	"../LUA535/include/lauxlib.h"
+	"../LUA535/include/lualib.h"
+
+1559315811 source:c:\users\derekslager\gits\text_quest\src\map.cpp
+	"Map.h"
+
+1559317195 source:c:\users\derekslager\gits\text_quest\src\objects.cpp
+	"Objects.h"
+
+1559315811 source:c:\users\derekslager\gits\text_quest\src\room.cpp
+	"Room.h"
+
+1559315811 source:c:\users\derekslager\gits\text_quest\src\world.cpp
+	"world.h"
+
+1559244305 c:\users\derekslager\gits\text_quest\lua535\include\lua.h
+	<stdarg.h>
+	<stddef.h>
+	"luaconf.h"
+
+1559244305 c:\users\derekslager\gits\text_quest\lua535\include\luaconf.h
+	<limits.h>
+	<stddef.h>
+	<stdint.h>
+	<assert.h>
+
+1559244305 c:\users\derekslager\gits\text_quest\lua535\include\lauxlib.h
+	<stddef.h>
+	<stdio.h>
+	"lua.h"
+
+1559244305 c:\users\derekslager\gits\text_quest\lua535\include\lualib.h
+	"lua.h"
+
