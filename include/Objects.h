@@ -41,6 +41,8 @@ static bool CheckLua(lua_State *L, int r)
 	return true;
 }
 
+
+
 struct item
 {
     std::string Name;
@@ -63,7 +65,7 @@ struct Objects
     bool used_dead = false;
 };
 
-struct Chest : public Objects
+struct Chest : public Objects //not being used
 {
     item Item_inside;
     bool opened = false;
@@ -77,6 +79,18 @@ struct Door : public Objects
     item Key;
     void Unlock_door(std::vector<item> Items);
     char facing; // n = north, s = south, e = east, w = west;
+};
+
+//Flag is just a string that it checks the name of to see if it has been activated.
+
+struct Event
+{
+    std::string Flag_Active;
+    std::string Name;
+    std::string Event_text;
+    std::vector<std::string> Options;
+    std::vector<std::string> Flags; //used to give flags
+    bool Done = false;
 };
 
 #endif // OBJECTS_H

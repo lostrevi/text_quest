@@ -9,6 +9,7 @@ void Map::load_Map_data()
 {
     std::vector<item> Items_temp; //used to clone
     std::vector<Door> Doors_temp;
+    std::vector<Event> Event_temp;
 
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
@@ -120,6 +121,72 @@ void Map::load_Map_data()
 
                 lua_pop(L, 1);//used to get rid of the null
             } //end of Doors
+
+
+
+            //Events add
+            lua_pushstring(L, "Events"); //this adds a string to -1 which is the key name
+            lua_gettable(L, -2); //this puts the table on -1 based on the key name
+
+            if(lua_istable(L, -1))
+            {
+                lua_pushnil(L);
+
+                while(lua_next(L, -2) != 0) ///////////////////////VERY COOL///////////////////////
+                {
+                    if(lua_istable(L, -1))
+                    {
+                        Event TEMP_Event;
+
+                        lua_pushstring(L, "Flag_Active");
+                        lua_gettable(L, -2);
+                        TEMP_Event.Flag_Active = lua_tostring(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "Name");
+                        lua_gettable(L, -2);
+                        TEMP_Event.Name = lua_tostring(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "Event_text");
+                        lua_gettable(L, -2);
+                        TEMP_Event.Event_text = lua_tostring(L, -1);
+                        lua_pop(L, 1);
+
+
+                        lua_pushstring(L, "Options"); //this adds a string to -1 which is the key name
+                        lua_gettable(L, -2); //this puts the table on -1 based on the key name
+
+                        if(lua_istable(L, -1)) //THIS IS SUPER BROKEN RIGHT NOW FIX WHEN HAVE TIME.
+                        {
+                            lua_pushnil(L);
+
+                            while(lua_next(L, -2) != 0) ///////////////////////VERY COOL///////////////////////
+                            {
+                                if(lua_isstring(L, -1))
+                                {
+                                    std::cout << "[ C++ Note ] Get text and put into proper vector : " << lua_tostring(L, -1) << "\n";
+                                }
+
+                                lua_pop(L, 1);
+                            }
+                            lua_pop(L, 1);
+                        }
+
+
+
+                        //send to Temp holder
+                        //Doors_temp.push_back(TEMP_DOOR);
+
+                    }
+
+                    lua_pop(L, 1);//used in while loop
+                }
+
+
+
+                lua_pop(L, 1);//used to get rid of the null
+            } //end of Events
 
 
 

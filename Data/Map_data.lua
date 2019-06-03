@@ -23,6 +23,26 @@ Level =
 			Key = "Red Key"
 		}
 	},
+	Events = 
+	{
+		{
+			Flag_Active = "N",
+			Name = "Welcome",
+			Event_text = "You find your self in a cave.",
+			Options = 
+			{
+				"Ok...",
+				"Right...",
+				"Well..."
+			},
+			Add_flags = -- must be = to the number of options
+			{
+				"N", --when it sees an N flag it will do nothing
+				"N",
+				"N"
+			}
+		}
+	},
 	Rooms = 
 	{
 		{

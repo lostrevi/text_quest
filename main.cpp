@@ -32,6 +32,20 @@ int main()
 }
 
 
+
+/*
+room run order
+check for events
+if(event A_Flag == N or A_Flag == Flag held by the player)
+    Run event code as long is event done is false
+finish event code
+
+Then give options listed below.
+
+*/
+
+
+
 /*
 game play commands
 
