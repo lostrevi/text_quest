@@ -15,6 +15,7 @@ struct Room
     //std::vector<Objects*> objects;
     std::vector<Door> Doors;
     std::vector<item> Items;
+    std::vector<Event> Events;
     std::string Description; // flaver text for room.
 
 };

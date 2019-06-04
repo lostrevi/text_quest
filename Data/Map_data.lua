@@ -58,6 +58,10 @@ Level =
 			{
 				"Red Key"
 			},
+			Events = 
+			{
+				"Welcome"
+			},
 			Description = "A dark room with brick walls on all sides but north.",
 			exitRoom = false
 		},
@@ -72,6 +76,7 @@ Level =
 			{
 				"nLocked Red door" --the facing char is shoved in front like so
 			},
+			Events = {},
 			Description = "A room with a door painted Red blocking the north path.",
 			exitRoom = false
 		},
@@ -86,6 +91,7 @@ Level =
 			{
 				
 			},
+			Events = {},
 			Description = "A hallway.",
 			exitRoom = false
 		},
@@ -100,6 +106,7 @@ Level =
 			{
 				
 			},
+			Events = {},
 			Description = "A magical test room",
 			exitRoom = false
 		},
@@ -114,6 +121,7 @@ Level =
 			{
 				
 			},
+			Events = {},
 			Description = "Another magical test room",
 			exitRoom = false
 		}

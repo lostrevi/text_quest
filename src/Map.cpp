@@ -347,6 +347,39 @@ void Map::load_Map_data()
                         }
 
 
+
+                       //adding Events
+                        lua_pushstring(L, "Events"); //this adds a string to -1 which is the key name
+                        lua_gettable(L, -2); //this puts the table on -1 based on the key name
+
+
+                        if(lua_istable(L, -1)) //THIS IS SUPER BROKEN RIGHT NOW FIX WHEN HAVE TIME.
+                        {
+                            lua_pushnil(L);
+
+                            while(lua_next(L, -2) != 0) ///////////////////////VERY COOL///////////////////////
+                            {
+                                if(lua_isstring(L, -1))
+                                {
+                                    //std::cout << "[ C++ Note ] Get text and put into proper vector : " << lua_tostring(L, -1) << "\n";
+                                    std::string Target = lua_tostring(L, -1);
+
+                                    for(int i = 0; i < Event_temp.size(); i++)
+                                    {
+                                        if(Event_temp[i].Name == Target)
+                                        {
+                                            TEMP_ROOM.Events.push_back(Event_temp[i]);
+                                        }
+                                    }
+
+                                }
+
+                                lua_pop(L, 1);
+                            }
+                            lua_pop(L, 1);
+                        }
+
+
                         lua_pushstring(L, "exitRoom");
                         lua_gettable(L, -2);
                         TEMP_ROOM.exit_room = lua_toboolean(L, -1);
@@ -404,6 +437,13 @@ void Map::load_Map_data()
         for(int x = 0; x < Rooms[i].Items.size(); x++)
         {
             std::cout << Rooms[i].Items[x].Name << " | " << Rooms[i].Items[x].Description << "\n";
+        }
+
+        std::cout << "Events : (if any) \n";
+        for(int x = 0; x < Rooms[i].Events.size(); x++ )
+        {
+            std::cout << Rooms[i].Events[x].Name << " | " << "Active Flag: " << Rooms[i].Events[x].Flag_Active
+                << " | Text : " << Rooms[i].Events[x].Event_text << "\n";
         }
 
 
