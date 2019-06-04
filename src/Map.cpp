@@ -165,7 +165,28 @@ void Map::load_Map_data()
                             {
                                 if(lua_isstring(L, -1))
                                 {
-                                    std::cout << "[ C++ Note ] Get text and put into proper vector : " << lua_tostring(L, -1) << "\n";
+                                    //std::cout << "[ C++ Note ] Get text and put into proper vector : " << lua_tostring(L, -1) << "\n";
+                                    TEMP_Event.Options.push_back(lua_tostring(L, -1));
+                                }
+
+                                lua_pop(L, 1);
+                            }
+                            lua_pop(L, 1);
+                        }
+
+                        lua_pushstring(L, "Add_flags"); //this adds a string to -1 which is the key name
+                        lua_gettable(L, -2); //this puts the table on -1 based on the key name
+
+                        if(lua_istable(L, -1)) //THIS IS SUPER BROKEN RIGHT NOW FIX WHEN HAVE TIME.
+                        {
+                            lua_pushnil(L);
+
+                            while(lua_next(L, -2) != 0) ///////////////////////VERY COOL///////////////////////
+                            {
+                                if(lua_isstring(L, -1))
+                                {
+                                    //std::cout << "[ C++ Note ] Get text and put into proper vector : " << lua_tostring(L, -1) << "\n";
+                                    TEMP_Event.Flags.push_back(lua_tostring(L, -1));
                                 }
 
                                 lua_pop(L, 1);
@@ -176,7 +197,7 @@ void Map::load_Map_data()
 
 
                         //send to Temp holder
-                        //Doors_temp.push_back(TEMP_DOOR);
+                        Event_temp.push_back(TEMP_Event);
 
                     }
 
@@ -202,6 +223,21 @@ void Map::load_Map_data()
             {
                 std::cout << "Door| Name : " << Doors_temp[i].Name << " | Des : " << Doors_temp[i].Description << "\n";
                 std::cout << "\t-->Key needed for door is : " << Doors_temp[i].Key.Name << "\n";
+            }
+
+            for(int i = 0; i < Event_temp.size(); i++)
+            {
+                std::cout << "Event| Name : " << Event_temp[i].Name << " | Text : " << Event_temp[i].Event_text << " | A_flag : " << Event_temp[i].Flag_Active << "\n";
+                std::cout << "Options : \n";
+                for(int x = 0; x < Event_temp[i].Options.size(); x++ )
+                {
+                    std::cout << "\t->" << Event_temp[i].Options[x] << "\n";
+                }
+                std::cout << "Flags : \n";
+                for(int x = 0; x < Event_temp[i].Flags.size(); x++ )
+                {
+                    std::cout << "\t->" << Event_temp[i].Flags[x] << "\n";
+                }
             }
 
 
