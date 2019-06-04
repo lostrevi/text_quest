@@ -48,6 +48,11 @@ void Map::load_Map_data()
                         TEMP_ITEM.Useable = lua_toboolean(L, -1);
                         lua_pop(L, 1);
 
+                        lua_pushstring(L, "Flag");
+                        lua_gettable(L, -2);
+                        TEMP_ITEM.Flag = lua_tostring(L, -1);
+                        lua_pop(L, 1);
+
                         //send to Temp holder
                         Items_temp.push_back(TEMP_ITEM);
 
@@ -216,7 +221,8 @@ void Map::load_Map_data()
             //testing
             for(int i = 0; i < Items_temp.size(); i++)
             {
-                std::cout << "ITEM| Name : " << Items_temp[i].Name << " | Des : " << Items_temp[i].Description << "\n";
+                std::cout << "ITEM| Name : " << Items_temp[i].Name << " | Des : " << Items_temp[i].Description
+                    << "Flag : " << Items_temp[i].Flag << "\n";
             }
 
             for(int i = 0; i < Doors_temp.size(); i++)
@@ -241,9 +247,168 @@ void Map::load_Map_data()
             }
 
 
+
+            //Loading the room from the file.
+            //Item ROOMS
+            lua_pushstring(L, "Rooms"); //this adds a string to -1 which is the key name
+            lua_gettable(L, -2); //this puts the table on -1 based on the key name
+
+            if(lua_istable(L, -1))
+            {
+                lua_pushnil(L);
+
+                while(lua_next(L, -2) != 0) ///////////////////////VERY COOL///////////////////////
+                {
+                    if(lua_istable(L, -1))
+                    {
+                        Room TEMP_ROOM;
+
+                        lua_pushstring(L, "North");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.North_wall = lua_toboolean(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "West");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.West_wall = lua_toboolean(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "East");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.East_wall = lua_toboolean(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "South");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.South_wall = lua_toboolean(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "Pos_x");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.Loc.x = lua_tointeger(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "Pos_y");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.Loc.y = lua_tointeger(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "Description");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.Description = lua_tostring(L, -1);
+                        lua_pop(L, 1);
+
+
+                        //adding objects
+                        lua_pushstring(L, "Objects"); //this adds a string to -1 which is the key name
+                        lua_gettable(L, -2); //this puts the table on -1 based on the key name
+
+
+                        if(lua_istable(L, -1)) //THIS IS SUPER BROKEN RIGHT NOW FIX WHEN HAVE TIME.
+                        {
+                            lua_pushnil(L);
+
+                            while(lua_next(L, -2) != 0) ///////////////////////VERY COOL///////////////////////
+                            {
+                                if(lua_isstring(L, -1))
+                                {
+                                    //std::cout << "[ C++ Note ] Get text and put into proper vector : " << lua_tostring(L, -1) << "\n";
+                                    std::string Target = lua_tostring(L, -1);
+
+                                    for(int i = 0; i < Items_temp.size(); i++)
+                                    {
+                                        if(Items_temp[i].Name == Target)
+                                        {
+                                            TEMP_ROOM.Items.push_back(Items_temp[i]);
+                                        }
+                                    }
+
+                                    //for doors the target mus be changed
+                                    char Dir = Target[0];
+                                    Target.erase (Target.begin());
+
+                                    //std::cout << " [C++ Test] Target : " << Target << " | Dir : " << Dir << "\n";
+
+                                    for(int i = 0; i < Doors_temp.size(); i++)
+                                    {
+                                        if(Doors_temp[i].Name == Target)
+                                        {
+                                            Door TEMP = Doors_temp[i];
+                                            TEMP.facing = Dir;
+                                            TEMP_ROOM.Doors.push_back(TEMP);
+                                        }
+                                    }
+
+                                }
+
+                                lua_pop(L, 1);
+                            }
+                            lua_pop(L, 1);
+                        }
+
+
+                        lua_pushstring(L, "exitRoom");
+                        lua_gettable(L, -2);
+                        TEMP_ROOM.exit_room = lua_toboolean(L, -1);
+                        lua_pop(L, 1);
+
+
+                        //send to Temp holder
+                        Rooms.push_back(TEMP_ROOM);
+
+                    }
+
+                    lua_pop(L, 1);//used in while loop
+                }
+
+
+
+                lua_pop(L, 1);//used to get rid of the null
+            } //end of ROOM
+
+
         }
 
 
     }
+
+    //Everything should be done and loaded at this point
+
+    std::cout << "\n Room Data looker (Remove once loading via lua is tested and shown to be working)\n";
+    for(int i = 0; i < Rooms.size(); i++)
+    {
+        std::cout << "--------------------------------\n";
+        std::cout << "Room (x,y) : " << Rooms[i].Loc.x << " , " << Rooms[i].Loc.y;
+        if(Rooms[i].exit_room)
+            std::cout << " [EXIT ROOM] ";
+        std::cout << "\n";
+        std::cout << "Open Directions : ";
+        if(!Rooms[i].North_wall)
+            std::cout << " North ,";
+        if(!Rooms[i].West_wall)
+            std::cout << " West ,";
+        if(!Rooms[i].East_wall)
+            std::cout << " East ,";
+        if(!Rooms[i].South_wall)
+            std::cout << " South ,";
+        std::cout << "\n";
+
+        std::cout << "Description : " << Rooms[i].Description << "\n";
+        std::cout << "Doors in room: \n";
+        for(int x = 0; x < Rooms[i].Doors.size(); x++)
+        {
+            std::cout << Rooms[i].Doors[x].Name << " | " << Rooms[i].Doors[x].Description
+            << " | Facing : " << Rooms[i].Doors[x].facing << "\n";
+        }
+        std::cout << "Doors in Items: \n";
+        for(int x = 0; x < Rooms[i].Items.size(); x++)
+        {
+            std::cout << Rooms[i].Items[x].Name << " | " << Rooms[i].Items[x].Description << "\n";
+        }
+
+
+    }
+
+
 
 }

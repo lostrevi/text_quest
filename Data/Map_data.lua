@@ -6,12 +6,14 @@ Level =
 		{
 			Name = "Red Key",
 			Description = "A key painted the color red.",
-			Useable = true
+			Useable = true,
+			Flag = "N"
 		},
 		{
 			Name = "Screw driver",
 			Description = "A screw driver.",
-			Useable = true
+			Useable = true,
+			Flag = "N"
 		}
 	},
 	Doors = 

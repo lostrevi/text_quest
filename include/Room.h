@@ -12,7 +12,9 @@ struct Room
     bool South_wall = false;
     bool exit_room = false; //if you enter this room the game ends and you won.
     Pos Loc;
-    std::vector<Objects*> objects;
+    //std::vector<Objects*> objects;
+    std::vector<Door> Doors;
+    std::vector<item> Items;
     std::string Description; // flaver text for room.
 
 };

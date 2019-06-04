@@ -49,6 +49,7 @@ struct item
     std::string Description;
     bool Useable;
     bool delete_me = false;
+    std::string Flag = "N"; //if it has a flag //N = default do nothing
 };
 
 
@@ -79,6 +80,7 @@ struct Door : public Objects
     item Key;
     void Unlock_door(std::vector<item> Items);
     char facing; // n = north, s = south, e = east, w = west;
+
 };
 
 //Flag is just a string that it checks the name of to see if it has been activated.
