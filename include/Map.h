@@ -9,6 +9,12 @@ class Map
         void init();
         void load_Map_data();
 
+        void draw_Map();
+
+        Room Get_room(Pos Loc);
+
+        std::vector<Room> Get_rooms();
+
     private:
         std::vector<Room> Rooms;
 };

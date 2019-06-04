@@ -21,7 +21,7 @@ Level =
 		{
 			Name = "Locked Red door",
 			Locked = true,
-			Description = "A door that is painted red.",
+			Description = "door that is painted red.",
 			Key = "Red Key"
 		}
 	},

@@ -20,9 +20,8 @@ int main()
     {
         //start a game
         std::cout << "starting...\n";
-
-        Map Testing;
-        Testing.init();
+        World Master_world;
+        Master_world.init();
 
     }
 
