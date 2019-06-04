@@ -12,6 +12,7 @@ class Map
         void draw_Map();
 
         Room Get_room(Pos Loc);
+        Room* Get_room_ref(Pos Loc);
 
         std::vector<Room> Get_rooms();
 

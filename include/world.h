@@ -21,6 +21,7 @@ class World
 
     private:
         void display_current_room_info();
+        void Check_and_do_event();
 
         Map m_map;
         Player m_player;

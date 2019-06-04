@@ -28,6 +28,19 @@ Room Map::Get_room(Pos Loc)
     std::cout << "[ C++/lua load ERROR ] Room could not be found or wrong warp\n";
 }
 
+Room* Map::Get_room_ref(Pos Loc)
+{
+    for(int i = 0; i < Rooms.size(); i++)
+    {
+        if(Rooms[i].Loc.x == Loc.x && Rooms[i].Loc.y == Loc.y)
+        {
+            return &Rooms[i];
+        }
+    }
+
+    std::cout << "[ C++/lua load ERROR ] Room could not be found or wrong warp\n";
+}
+
 void Map::load_Map_data()
 {
     std::vector<item> Items_temp; //used to clone
