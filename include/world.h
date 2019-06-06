@@ -23,6 +23,7 @@ class World
         void display_current_room_info();
         void Check_and_do_event();
         void Check_door_Flags();
+        void Check_for_Lose_Death_flag();
 
 
         Map m_map;

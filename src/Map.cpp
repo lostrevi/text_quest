@@ -134,6 +134,11 @@ void Map::load_Map_data(std::string PATH)
                         TEMP_ITEM.Useable = lua_toboolean(L, -1);
                         lua_pop(L, 1);
 
+                        lua_pushstring(L, "is_note");
+                        lua_gettable(L, -2);
+                        TEMP_ITEM.is_note = lua_toboolean(L, -1);
+                        lua_pop(L, 1);
+
                         lua_pushstring(L, "Flag");
                         lua_gettable(L, -2);
                         TEMP_ITEM.Flag = lua_tostring(L, -1);

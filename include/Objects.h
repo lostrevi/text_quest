@@ -61,6 +61,7 @@ struct item
 {
     std::string Name;
     std::string Description;
+    bool is_note = false;
     bool Useable;
     bool delete_me = false;
     std::string Flag = "N"; //if it has a flag //N = default do nothing

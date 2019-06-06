@@ -4,6 +4,7 @@
 
 -- file notes
 -- Resrived flags are N = do nothing | R = Redo (Same as N but it will redo the event if they go back into the room)
+-- L flag as well this is a lose flag will end loop
 --	 These are put in the Flags table for the event
 -- Objects are both rooms and items you can but both in remeber a room must have a direction in lower case
 --	n = north w,e,s i think you get it so when added a door to a room enter it like "nDoor" Door being the name of the door
@@ -18,6 +19,7 @@ Level =
 			Name = "Red Key",
 			Description = "a key painted the color red.",
 			Useable = true,
+			is_note = false,
 			Flag = "N"
 		}
 	},

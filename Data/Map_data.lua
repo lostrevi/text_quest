@@ -4,6 +4,7 @@
 
 -- file notes
 -- Resrived flags are N = do nothing | R = Redo (Same as N but it will redo the event if they go back into the room)
+-- L flag as well this is a lose flag will end loop
 --	 These are put in the Flags table for the event
 -- Objects are both rooms and items you can but both in remeber a room must have a direction in lower case
 --	n = north w,e,s i think you get it so when added a door to a room enter it like "nDoor" Door being the name of the door
@@ -21,12 +22,21 @@ Level =
 			Name = "Red Key",
 			Description = "a key painted the color red.",
 			Useable = true,
+			is_note = false,
 			Flag = "N"
 		},
 		{
 			Name = "Screw driver",
 			Description = "a screw driver.",
 			Useable = true,
+			is_note = false,
+			Flag = "N"
+		},
+		{
+			Name = "Hey dumb ass don't press the big red button. you'll die dumb ass.",
+			Description = "Note with red text on it",
+			Useable = false, --think this needs to be false
+			is_note = true, -- NOTES HAVE WHAT THEY SAY IN Name AND WHAT THEY LOOK LIKE IN Description
 			Flag = "N"
 		}
 	},
@@ -80,6 +90,22 @@ Level =
 				"V", 
 				"R" --when it sees an R it will keep the event active reset it for say.
 			}
+		},
+		{
+			Flag_Active = "N",
+			Name = "Death_button",
+			Event_text = "A button is on the wall it says DEATH on it should i push it?",
+			Options =
+			{
+				"Yeah because i hate being able to live.",
+				"No i don't want to die"
+			},
+			Add_flags =
+			{
+				"L",
+				"R"
+			}
+			
 		}
 	},
 	Rooms = 
@@ -118,7 +144,7 @@ Level =
 			exitRoom = false
 		},
 		{
-			North = true,
+			North = false,
 			West = false,
 			East = false,
 			South = false,
@@ -126,10 +152,25 @@ Level =
 			Pos_y = 2,
 			Objects = 
 			{
-				
+				"Hey dumb ass don't press the big red button. you'll die dumb ass." --yeah kinda dumb but should work and this is only forl oading
 			},
 			Events = {},
 			Description = "A hallway.",
+			exitRoom = false
+		},
+		{ --somthing broke fix it
+			North = true,
+			West = true,
+			East = true,
+			South = false,
+			Pos_x = 0,
+			Pos_y = 3,
+			Objects = 
+			{
+				
+			},
+			Events = {"Death_button"},
+			Description = "A room with a big red button that says do not push",
 			exitRoom = false
 		},
 		{

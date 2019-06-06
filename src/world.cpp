@@ -50,6 +50,23 @@ void World::update()
         std::cin.ignore();
 
     }
+    else
+    {
+        clear_screen();
+        std::cout << "+--------------------------------+\n";
+        std::cout << "| ______           _   _     _   |" << std::endl;
+        std::cout << "| |  _  \\         | | | |   | |  |" << std::endl;
+        std::cout << "| | | | |___  __ _| |_| |__ | |  |" << std::endl;
+        std::cout << "| | | | / _ \\/ _` | __| '_ \\| |  |" << std::endl;
+        std::cout << "| | |/ /  __/ (_| | |_| | | |_|  |" << std::endl;
+        std::cout << "| |___/ \\___|\\__,_|\\__|_| |_(_)  |" << std::endl;
+        std::cout << "|                                |" << std::endl;
+        std::cout << "+--------------------------------+\n";
+        std::cout << "You have died.\n";
+        std::cout << "Hit Enter to exit.\n";
+        std::cin.get();
+        std::cin.ignore();
+    }
 
 }
 
@@ -64,6 +81,7 @@ void World::Take_command()
     //EVENT LOGIC BEFORE TAKE_COMMAND LOGIC
     Check_and_do_event();
     Check_door_Flags();
+    Check_for_Lose_Death_flag();
 
     //show room info
     display_current_room_info();
@@ -73,6 +91,7 @@ void World::Take_command()
 
 
     std::cout << "---------------------------------------------\n>";
+    if(m_loop)
     std::cin >> input;
 
     clear_screen();
@@ -272,9 +291,15 @@ void World::Take_command()
                 std::cout << "U";
             else if(m_player.Invetory[i].delete_me)
                 std::cout << "D";
+            else if(m_player.Invetory[i].is_note)
+                std::cout << "N";
             else
                 std::cout << " ";
-            std::cout << "-> " << m_player.Invetory[i].Name << " | " << m_player.Invetory[i].Description << "\n";
+
+            if(m_player.Invetory[i].is_note)
+                std::cout << "-> " << m_player.Invetory[i].Description << " | " << m_player.Invetory[i].Name << "\n";
+            else
+                std::cout << "-> " << m_player.Invetory[i].Name << " | " << m_player.Invetory[i].Description << "\n";
         }
     }
     else if(input == "m" || input == "M" || input == "map" || input == "MAP" || input == "Map")
@@ -525,6 +550,18 @@ void World::Check_and_do_event()
                     current_r->Events[i].Done = true; //close the event
                 }
 
+        }
+    }
+}
+
+
+void World::Check_for_Lose_Death_flag()
+{
+    for(int i = 0; i < m_player.Flags.size(); i++)
+    {
+        if( m_player.Flags[i] == "L" )
+        {
+            m_loop = false;
         }
     }
 }
