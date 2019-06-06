@@ -57,9 +57,8 @@ int main()
             {
                 Good_input = true;
                 std::cout << "starting...\n";
-                std::cout << "NOT SETUP YET\n";
                 World Master_world;
-                //Master_world.init("");
+                Master_world.init(MAP_DATA_PATH_MAIN_GAME);
             }
             else if(input == "t" || input == "T")
             {

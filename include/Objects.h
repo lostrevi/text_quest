@@ -8,6 +8,7 @@
 #include <time.h>
 #include <cstdlib>
 #include <conio.h>
+#include <windows.h>
 
 extern "C"
 {
@@ -28,6 +29,7 @@ extern "C"
 
 
 const static std::string MAP_DATA_PATH = "Data/Map_data.lua";
+const static std::string MAP_DATA_PATH_MAIN_GAME = "Data/Main_GameData.lua";
 
 //Clear screen that will help running on systems other then windows.
 static void clear_screen()

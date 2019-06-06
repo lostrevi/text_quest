@@ -12,7 +12,12 @@ std::vector<Room> Map::Get_rooms()
 
 void Map::draw_Map(Pos player_loc)
 {
-    std::cout << "Drawing Map | S = starting location | P = Player | # = A room\n";
+    std::cout << "Drawing Map | S = starting location | ";
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 10);
+    std::cout << "P";
+    SetConsoleTextAttribute(hConsole,7);
+    std::cout << " = Player | # = A room\n";
     std::cout << "Play location [" << player_loc.x << "," << player_loc.y << "]\n";
     std::cout << "-----------------------------------------------\n";
 
@@ -29,7 +34,10 @@ void Map::draw_Map(Pos player_loc)
                         room_found = true;
                         if(player_loc.x == x && player_loc.y == y)
                         {
+                            HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+                            SetConsoleTextAttribute(hConsole, 10);
                             std::cout << "P";
+                            SetConsoleTextAttribute(hConsole, 7);
                         }
                         else if(Rooms[i].Loc.x == 0 && Rooms[i].Loc.y == 0)
                         {

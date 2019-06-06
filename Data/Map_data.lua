@@ -1,4 +1,18 @@
 --Map-file--
+
+-- test level --
+
+-- file notes
+-- Resrived flags are N = do nothing | R = Redo (Same as N but it will redo the event if they go back into the room)
+--	 These are put in the Flags table for the event
+-- Objects are both rooms and items you can but both in remeber a room must have a direction in lower case
+--	n = north w,e,s i think you get it so when added a door to a room enter it like "nDoor" Door being the name of the door
+-- and n being the wall it is on
+--
+--
+
+
+
 Level =
 {
 	Items = 

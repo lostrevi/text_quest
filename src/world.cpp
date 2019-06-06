@@ -327,7 +327,13 @@ void World::display_current_room_info()
                 if(current_r.Doors[i].Locked)
                     std::cout << "[n] Try to open the " << current_r.Doors[i].Description << "\n";
                 else
-                    std::cout << "[n] Opened the " << current_r.Doors[i].Description << "\n";
+                {
+                        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+                        SetConsoleTextAttribute(hConsole, 10);
+                        std::cout << "[n] Opened the " << current_r.Doors[i].Description << "\n";
+                        SetConsoleTextAttribute(hConsole, 7);
+                }
+
                doorFound = true;
             }
         }
@@ -345,7 +351,12 @@ void World::display_current_room_info()
                 if(current_r.Doors[i].Locked)
                     std::cout << "[w] Try to open the " << current_r.Doors[i].Description << "\n";
                 else
-                    std::cout << "[w] Opened the " << current_r.Doors[i].Description << "\n";
+                    {
+                        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+                        SetConsoleTextAttribute(hConsole, 10);
+                        std::cout << "[w] Opened the " << current_r.Doors[i].Description << "\n";
+                        SetConsoleTextAttribute(hConsole, 7);
+                    }
                doorFound = true;
             }
         }
@@ -363,7 +374,12 @@ void World::display_current_room_info()
                 if(current_r.Doors[i].Locked)
                     std::cout << "[e] Try to open the " << current_r.Doors[i].Description << "\n";
                 else
-                    std::cout << "[e] Opened the " << current_r.Doors[i].Description << "\n";
+                    {
+                        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+                        SetConsoleTextAttribute(hConsole, 10);
+                        std::cout << "[e] Opened the " << current_r.Doors[i].Description << "\n";
+                        SetConsoleTextAttribute(hConsole, 7);
+                    }
                doorFound = true;
             }
         }
@@ -381,7 +397,12 @@ void World::display_current_room_info()
                 if(current_r.Doors[i].Locked)
                     std::cout << "[s] Try to open the " << current_r.Doors[i].Description << "\n";
                 else
-                    std::cout << "[s] Opened the " << current_r.Doors[i].Description << "\n";
+                    {
+                        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+                        SetConsoleTextAttribute(hConsole, 10);
+                        std::cout << "[s] Opened the " << current_r.Doors[i].Description << "\n";
+                        SetConsoleTextAttribute(hConsole, 7);
+                    }
                doorFound = true;
             }
         }
@@ -411,9 +432,15 @@ void World::Check_door_Flags()
             {
                 if(current_r->Doors[i].Locked && current_r->Doors[i].Active_Flag != "N" )
                 {
+                    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+                    SetConsoleTextAttribute(hConsole, 12);
+
                     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
                     std::cout << "!!! -> You hear something click.!!!\n";
                     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+
+                    SetConsoleTextAttribute(hConsole, 7);
+
                     current_r->Doors[i].Locked = false;
                 }
             }
