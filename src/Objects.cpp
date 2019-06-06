@@ -4,15 +4,18 @@
 
 void Door::Unlock_door(std::vector<item> Items)
 {
-    std::cout << " You go to open the door.\n";
+
+    std::cout << "\t You go to open the door.\n";
     if(Locked)
     {
         if(rand()% 2 == 1)
-            std::cout << "\"Damn it's locked\"\n";
+            std::cout << "\t\"Damn, it's locked.\"\n";
+        else if(rand()% 2 == 1)
+            std::cout << "\t\"Locked!\"\n";
         else
-            std::cout << "\"Locked!\"\n";
+            std::cout << "\t\"I can't get it opened.\"";
 
-        std::cout << "You try to unlock it ...";
+        std::cout << "\tYou try to open it ...";
 
 
         bool door_unlocked = false;
@@ -24,17 +27,18 @@ void Door::Unlock_door(std::vector<item> Items)
 
         if(door_unlocked)
         {
-            std::cout << "\nThe door is unlocked thanks to the item : " << Key.Name << " \n";
+            std::cout << "\t\nYou were able to get it opened thanks to : " << Key.Name << " \n";
             Locked = false;
         }
         else
         {
-            std::cout << "\nNothing you have was able to unlock the door\n";
+            std::cout << "\t\nNothing you have was able to open it\n";
         }
 
     }
     else
     {
-        std::cout << "The door was unlocked\n";
+        std::cout << "\tIt was unlocked\n";
     }
+    std::cout << "+--------------------------------------------+\n";
 }

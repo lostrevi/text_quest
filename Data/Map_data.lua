@@ -22,7 +22,15 @@ Level =
 			Name = "Locked Red door",
 			Locked = true,
 			Description = "door that is painted red.",
-			Key = "Red Key"
+			Key = "Red Key",
+			Active_Flag = "N" -- N is nothing and should never be active.
+		},
+		{
+			Name = "Metal Vent",
+			Locked = true,
+			Description = "metal vent with a set of gears holding it shut.",
+			Key = "NOTHING",
+			Active_Flag = "V"
 		}
 	},
 	Events = 
@@ -42,6 +50,21 @@ Level =
 				"N", --when it sees an N flag it will do nothing
 				"N",
 				"N"
+			}
+		},
+		{
+			Flag_Active = "N",
+			Name = "Vent_control",
+			Event_text = "You find a terminal with a button on it. Do you want to press it?",
+			Options = 
+			{
+				"Ok...",
+				"No"
+			},
+			Add_flags = -- must be = to the number of options
+			{
+				"V", 
+				"R" --when it sees an R it will keep the event active reset it for say.
 			}
 		}
 	},
@@ -106,8 +129,23 @@ Level =
 			{
 				
 			},
+			Events = {"Vent_control"},
+			Description = "A control room of somekind",
+			exitRoom = false
+		},
+		{
+			North = true,
+			West = false,
+			East = false,
+			South = true,
+			Pos_x = -1,
+			Pos_y = 2,
+			Objects = 
+			{
+				"wMetal Vent"
+			},
 			Events = {},
-			Description = "A magical test room",
+			Description = "A room with a vent on the west facing wall",
 			exitRoom = false
 		},
 		{
@@ -115,15 +153,15 @@ Level =
 			West = true,
 			East = false,
 			South = true,
-			Pos_x = -1,
+			Pos_x = -2,
 			Pos_y = 2,
 			Objects = 
 			{
 				
 			},
 			Events = {},
-			Description = "Another magical test room",
-			exitRoom = false
+			Description = "A magical exit room",
+			exitRoom = true
 		}
 	}
 }

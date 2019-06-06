@@ -15,13 +15,15 @@ struct Player //might move later
 class World
 {
     public:
-        void init();
+        void init(std::string PATH);
         void update();
         void Take_command();
 
     private:
         void display_current_room_info();
         void Check_and_do_event();
+        void Check_door_Flags();
+
 
         Map m_map;
         Player m_player;

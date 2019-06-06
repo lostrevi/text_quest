@@ -1,8 +1,8 @@
 #include "Map.h"
 
-void Map::init()
+void Map::init(std::string PATH)
 {
-    load_Map_data();
+    load_Map_data(PATH);
 }
 
 std::vector<Room> Map::Get_rooms()
@@ -10,9 +10,50 @@ std::vector<Room> Map::Get_rooms()
    return Rooms;
 }
 
-void Map::draw_Map()
+void Map::draw_Map(Pos player_loc)
 {
-    std::cout << "[ C++ Note ] Draw_Map() is not setup\n";
+    std::cout << "Drawing Map | S = starting location | P = Player | # = A room\n";
+    std::cout << "Play location [" << player_loc.x << "," << player_loc.y << "]\n";
+    std::cout << "-----------------------------------------------\n";
+
+    for( int y = 10; y > -10; y-- )
+    {
+        for( int x = 20; x > -21; x-- )
+        {
+                bool room_found = false;
+                for(int i = 0; i < Rooms.size(); i++)
+                {
+
+                    if(Rooms[i].Loc.x == x && Rooms[i].Loc.y == y && Rooms[i].discovered)
+                    {
+                        room_found = true;
+                        if(player_loc.x == x && player_loc.y == y)
+                        {
+                            std::cout << "P";
+                        }
+                        else if(Rooms[i].Loc.x == 0 && Rooms[i].Loc.y == 0)
+                        {
+                            std::cout << "S";
+                        }
+                        else
+                        {
+                            std::cout << "#";
+                        }
+
+                    }
+                }
+                if(!room_found)
+                {
+                    std::cout << " ";
+                }
+        }
+        std::cout << "\n";
+    }
+
+    std::cout << "Press Enter\n";
+    std::cin.get();
+    std::cin.ignore();
+
 }
 
 Room Map::Get_room(Pos Loc)
@@ -41,8 +82,9 @@ Room* Map::Get_room_ref(Pos Loc)
     std::cout << "[ C++/lua load ERROR ] Room could not be found or wrong warp\n";
 }
 
-void Map::load_Map_data()
+void Map::load_Map_data(std::string PATH)
 {
+    std::string FILE = PATH;
     std::vector<item> Items_temp; //used to clone
     std::vector<Door> Doors_temp;
     std::vector<Event> Event_temp;
@@ -50,7 +92,7 @@ void Map::load_Map_data()
     lua_State *L = luaL_newstate();
     luaL_openlibs(L);
 
-    if(CheckLua(L, luaL_dofile(L, MAP_DATA_PATH.c_str())))
+    if(CheckLua(L, luaL_dofile(L, FILE.c_str())))
     {
         lua_getglobal(L, "Level");
         if(lua_istable(L, -1))
@@ -134,6 +176,11 @@ void Map::load_Map_data()
                         lua_pushstring(L, "Key");
                         lua_gettable(L, -2);
                         std::string item_target = lua_tostring(L, -1);
+                        lua_pop(L, 1);
+
+                        lua_pushstring(L, "Active_Flag");
+                        lua_gettable(L, -2);
+                        TEMP_DOOR.Active_Flag = lua_tostring(L, -1);
                         lua_pop(L, 1);
 
                         //get item

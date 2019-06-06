@@ -1,44 +1,87 @@
 #include "world.h"
 
-void World::init()
+void World::init(std::string PATH)
 {
-    m_map.init();
+    m_map.init(PATH);
 
-
+    clear_screen();
     update();
 }
 
 void World::update()
 {
+    bool win = false;
     while(m_loop)
     {
+        if( m_map.Get_room(m_player.Loc).exit_room )
+        {
+            m_loop = false;
+            win = true;
+            break;
+        }
+
+
         Take_command();
     }
+
+    //Do win state stuff
+    if(win)
+    {
+        clear_screen();
+
+        std::cout << "	           .---.                                                 " << std::endl;
+        std::cout << "          /. ./|  ,--,                                             " << std::endl;
+        std::cout << "      .--'.  ' ;,--.'|         ,---,      ,---,             __  ,-." << std::endl;
+        std::cout << "     /__./ \\ : ||  |,      ,-+-. /  | ,-+-. /  |          ,' ,'/ /|" << std::endl;
+        std::cout << " .--'.  '   \\' .`--'_     ,--.'|'   |,--.'|'   |   ,---.  '  | |' |" << std::endl;
+        std::cout << "/___/ \\ |    ' ',' ,'|   |   |  ,\"' |   |  ,\"' |  /     \\ |  |   ,'" << std::endl;
+        std::cout << ";   \\  \\;      :'  | |   |   | /  | |   | /  | | /    /  |'  :  /  " << std::endl;
+        std::cout << " \\   ;  `      ||  | :   |   | |  | |   | |  | |.    ' / ||  | '   " << std::endl;
+        std::cout << "  .   \\    .\\  ;'  : |__ |   | |  |/|   | |  |/ '   ;   /|;  : |   " << std::endl;
+        std::cout << "   \\   \\   ' \\ ||  | '.'||   | |--' |   | |--'  '   |  / ||  , ;   " << std::endl;
+        std::cout << "    :   '  |--\" ;  :    ;|   |/     |   |/      |   :    | ---'    " << std::endl;
+        std::cout << "     \\   \\ ;    |  ,   / '---'      '---'        \\   \\  /          " << std::endl;
+        std::cout << "      '---\"      ---`-'                           `----'           " << std::endl;
+        std::cout << "                                                                   " << std::endl;
+        std::cout << "-------------------------------------------------------------------\n";
+        std::cout << "You did it you were able to get out!\n";
+        std::cout << "Hit Enter to exit.\n";
+        std::cin.get();
+        std::cin.ignore();
+
+    }
+
 }
 
 void World::Take_command()
 {
     std::string input = "";
+    //clear_screen();
 
     //debug
-        std::cout << "m_play (x,y) : " << m_player.Loc.x << " , " << m_player.Loc.y << "\n";
+        //std::cout << "m_play (x,y) : " << m_player.Loc.x << " , " << m_player.Loc.y << "\n";
 
     //EVENT LOGIC BEFORE TAKE_COMMAND LOGIC
     Check_and_do_event();
+    Check_door_Flags();
 
     //show room info
     display_current_room_info();
     Room *current_r = m_map.Get_room_ref(m_player.Loc);
+    current_r->discovered = true;
+
 
 
     std::cout << "---------------------------------------------\n>";
     std::cin >> input;
 
+    clear_screen();
+
     if(input == "ping") //test command
     {
         std::cout << "\t -> Pong\n";
     }
-    else if(input == "n" || input == "north")
+    else if(input == "n" || input == "N" || input == "north")
     {
         if(!current_r->North_wall)
         {
@@ -51,12 +94,12 @@ void World::Take_command()
                     std::cout << "You walk North to the " << current_r->Doors[i].Description << "\n";
                     if(!current_r->Doors[i].Locked)
                     {
-                        std::cout << "You open the unlocked door.\n";
+                        //std::cout << "You open the unlocked door.\n";
                         m_player.Loc.y ++;
                     }
                     else
                     {
-                        std::cout << "you try to unlock it with your items\n";
+                        //std::cout << "you try to unlock it with your items\n";
                         current_r->Doors[i].Unlock_door(m_player.Invetory);
                     }
                 }
@@ -73,7 +116,7 @@ void World::Take_command()
         else
             std::cout << "You walk into a wall\n";
     }
-    else if(input == "w" || input == "west")
+    else if(input == "w" || input == "W" || input == "west")
     {
         if(!current_r->West_wall)
         {
@@ -86,12 +129,12 @@ void World::Take_command()
                     std::cout << "You walk West to the " << current_r->Doors[i].Description << "\n";
                     if(!current_r->Doors[i].Locked)
                     {
-                        std::cout << "You open the unlocked door.\n";
+                        //std::cout << "You open the unlocked door.\n";
                         m_player.Loc.x --;
                     }
                     else
                     {
-                        std::cout << "you try to unlock it with your items\n";
+                        //std::cout << "you try to unlock it with your items\n";
                         current_r->Doors[i].Unlock_door(m_player.Invetory);
                     }
                 }
@@ -106,7 +149,7 @@ void World::Take_command()
         else
             std::cout << "You walk into a wall\n";
     }
-    else if(input == "e" || input == "east")
+    else if(input == "e" || input == "E" || input == "east")
     {
         if(!current_r->East_wall)
         {
@@ -119,12 +162,12 @@ void World::Take_command()
                     std::cout << "You walk East to the " << current_r->Doors[i].Description << "\n";
                     if(!current_r->Doors[i].Locked)
                     {
-                        std::cout << "You open the unlocked door.\n";
+                        //std::cout << "You open the unlocked door.\n";
                         m_player.Loc.x ++;
                     }
                     else
                     {
-                        std::cout << "you try to unlock it with your items\n";
+                        //std::cout << "you try to unlock it with your items\n";
                         current_r->Doors[i].Unlock_door(m_player.Invetory);
                     }
                 }
@@ -139,7 +182,7 @@ void World::Take_command()
         else
             std::cout << "You walk into a wall\n";
     }
-    else if(input == "s" || input == "south")
+    else if(input == "s" || input == "S" || input == "south")
     {
         if(!current_r->South_wall)
         {
@@ -152,12 +195,12 @@ void World::Take_command()
                     std::cout << "You walk South to the " << current_r->Doors[i].Description << "\n";
                     if(!current_r->Doors[i].Locked)
                     {
-                        std::cout << "You open the unlocked door.\n";
+                        //std::cout << "You open the unlocked door.\n";
                         m_player.Loc.y --;
                     }
                     else
                     {
-                        std::cout << "you try to unlock it with your items\n";
+                        //std::cout << "you try to unlock it with your items\n";
                         current_r->Doors[i].Unlock_door(m_player.Invetory);
                     }
                 }
@@ -234,16 +277,25 @@ void World::Take_command()
             std::cout << "-> " << m_player.Invetory[i].Name << " | " << m_player.Invetory[i].Description << "\n";
         }
     }
+    else if(input == "m" || input == "M" || input == "map" || input == "MAP" || input == "Map")
+    {
+        clear_screen();
+        m_map.draw_Map(m_player.Loc);
+        clear_screen();
+    }
     else
     {
-        std::cout << "----Help----\n";
-        std::cout << "[n] move North/open North door\n";
-        std::cout << "[w] move West/open West door\n";
-        std::cout << "[e] move East/open East door\n";
-        std::cout << "[s] move South/open South door\n";
-        std::cout << "[g] Look at whats on the ground\n";
-        std::cout << "[i] check you Inventory\n";
-        std::cout << "ping - Test command\n";
+        std::cout << "+-----------------------------------+\n";
+        std::cout << "|       +   ----Help----   +        |\n";
+        std::cout << "| [n] move North/open North door    |\n";
+        std::cout << "| [w] move West/open West door      |\n";
+        std::cout << "| [e] move East/open East door      |\n";
+        std::cout << "| [s] move South/open South door    |\n";
+        std::cout << "| [g] Look at whats on the ground   |\n";
+        std::cout << "| [i] check you Inventory           |\n";
+        std::cout << "| [m] view map                      |\n";
+        std::cout << "| [ping] - Test command             |\n";
+        std::cout << "+-----------------------------------+\n";
     }
 
 
@@ -347,8 +399,35 @@ void World::display_current_room_info()
 
 }
 
+void World::Check_door_Flags()
+{
+    Room *current_r = m_map.Get_room_ref(m_player.Loc);
+
+    for( int i = 0; i < current_r->Doors.size(); i++ )
+    {
+        for( int x = 0; x < m_player.Flags.size(); x++ )
+        {
+            if( current_r->Doors[i].Active_Flag == m_player.Flags[x] )
+            {
+                if(current_r->Doors[i].Locked && current_r->Doors[i].Active_Flag != "N" )
+                {
+                    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                    std::cout << "!!! -> You hear something click.!!!\n";
+                    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                    current_r->Doors[i].Locked = false;
+                }
+            }
+        }
+    }
+
+}
+
 void World::Check_and_do_event()
 {
+    //Resrived event flags R = Redo event (later) | N = Do nothing
+
+    bool Redo_event = false;
+
     Room *current_r = m_map.Get_room_ref(m_player.Loc);
 
     for(int i = 0; i < current_r->Events.size(); i++)
@@ -395,9 +474,14 @@ void World::Check_and_do_event()
                        if(Index <= current_r->Events[i].Options.size() + 1  && Index > 0)
                        {
                            //good
-                           if(current_r->Events[i].Options[Index - 1] != "N")
+                           if(current_r->Events[i].Flags[Index - 1] != "N" && current_r->Events[i].Flags[Index - 1] != "R")
                            {
-                                m_player.Flags.push_back(current_r->Events[i].Options[Index - 1]);
+                                m_player.Flags.push_back(current_r->Events[i].Flags[Index - 1]);
+                           }
+
+                           if(current_r->Events[i].Flags[Index - 1] == "R")
+                           {
+                               Redo_event = true;
                            }
 
 
@@ -410,7 +494,7 @@ void World::Check_and_do_event()
 
                     }
 
-
+                    if(!Redo_event)
                     current_r->Events[i].Done = true; //close the event
                 }
 

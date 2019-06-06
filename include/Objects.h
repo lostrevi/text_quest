@@ -7,6 +7,7 @@
 #include <vector>
 #include <time.h>
 #include <cstdlib>
+#include <conio.h>
 
 extern "C"
 {
@@ -27,6 +28,17 @@ extern "C"
 
 
 const static std::string MAP_DATA_PATH = "Data/Map_data.lua";
+
+//Clear screen that will help running on systems other then windows.
+static void clear_screen()
+{
+#ifdef _WIN32
+    std::system("cls");
+#else
+    // Assume POSIX
+    std::system ("clear");
+#endif
+}
 
 
 // Little error checking utility function
@@ -80,6 +92,7 @@ struct Door : public Objects
     item Key;
     void Unlock_door(std::vector<item> Items);
     char facing; // n = north, s = south, e = east, w = west;
+    std::string Active_Flag;
 
 };
 

@@ -6,10 +6,10 @@
 class Map
 {
     public:
-        void init();
-        void load_Map_data();
+        void init(std::string PATH);
+        void load_Map_data(std::string PATH);
 
-        void draw_Map();
+        void draw_Map(Pos player_loc);
 
         Room Get_room(Pos Loc);
         Room* Get_room_ref(Pos Loc);

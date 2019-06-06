@@ -11,6 +11,7 @@ struct Room
     bool East_wall = false;
     bool South_wall = false;
     bool exit_room = false; //if you enter this room the game ends and you won.
+    bool discovered = false;
     Pos Loc;
     //std::vector<Objects*> objects;
     std::vector<Door> Doors;
