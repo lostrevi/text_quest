@@ -47,7 +47,7 @@ int main()
         Draw_header();
         std::cout << "\t-> [s] Main Game(Working on)\n";
         std::cout << "\t-> [t] Test Room\n";
-        std::cout << "\t-> [c] Custom\n";
+        std::cout << "\t-> [c] Custom\n>";
         bool Good_input = false;
         while(!Good_input)
         {
