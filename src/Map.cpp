@@ -312,7 +312,7 @@ void Map::load_Map_data(std::string PATH)
 
 
 
-
+            /*
             std::cout << "Testing loading (Remove once loading is working 100%)\n";
             //testing
             for(int i = 0; i < Items_temp.size(); i++)
@@ -340,7 +340,7 @@ void Map::load_Map_data(std::string PATH)
                 {
                     std::cout << "\t->" << Event_temp[i].Flags[x] << "\n";
                 }
-            }
+            } */
 
 
 
@@ -503,6 +503,8 @@ void Map::load_Map_data(std::string PATH)
 
     //Everything should be done and loaded at this point
 
+    /*
+
     std::cout << "\n Room Data looker (Remove once loading via lua is tested and shown to be working)\n";
     for(int i = 0; i < Rooms.size(); i++)
     {
@@ -544,6 +546,8 @@ void Map::load_Map_data(std::string PATH)
 
 
     }
+
+    */
 
 
 

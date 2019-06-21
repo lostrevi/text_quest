@@ -29,7 +29,7 @@ void World::update()
     {
         clear_screen();
 
-        std::cout << "	           .---.                                                 " << std::endl;
+        std::cout << "	   .---.                                                 " << std::endl;
         std::cout << "          /. ./|  ,--,                                             " << std::endl;
         std::cout << "      .--'.  ' ;,--.'|         ,---,      ,---,             __  ,-." << std::endl;
         std::cout << "     /__./ \\ : ||  |,      ,-+-. /  | ,-+-. /  |          ,' ,'/ /|" << std::endl;

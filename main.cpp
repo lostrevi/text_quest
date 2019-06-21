@@ -45,7 +45,7 @@ int main()
         //start a game
         clear_screen();
         Draw_header();
-        std::cout << "\t-> [s] Main Game(Working on)\n";
+        std::cout << "\t-> [s] Main Game\n";
         std::cout << "\t-> [t] Test Room\n";
         std::cout << "\t-> [c] Custom\n>";
         bool Good_input = false;
